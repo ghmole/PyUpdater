@@ -42,6 +42,10 @@ import urllib3
 
 from pyupdater import settings
 
+try:
+    from PyInstaller import __version__ as pyi_version
+except ImportError:
+    pyi_version = "0.0"
 
 log = logging.getLogger(__name__)
 
@@ -288,7 +292,7 @@ def make_archive(name, target, version, archive_format):
             shutil.move(src_executable, dst_executable)
 
         # is a win folder so the manifest need to be renamed too
-        if system.get_system() == "win":
+        if system.get_system() == "win" and pyi_version<'6.0.0':
             src_manifest = src_executable + ".manifest"
             dst_manifest = dst_executable + ".manifest"
             shutil.move(src_manifest, dst_manifest)
