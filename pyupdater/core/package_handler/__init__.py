@@ -139,10 +139,12 @@ class PackageHandler(object):
                 os.mkdir(d)
 
     def _load_version_file(self):
+        print('_load_version_file()')
         # If version file is found its loaded to memory
         # If no version file is found then one is created.
         json_data = self.db.load(settings.CONFIG_DB_KEY_VERSION_META)
-        if json_data is None:  # pragma: no cover
+        print(json_data)
+        if json_data is None or len(json_data)==0:  # pragma: no cover
             log.warning("Version file not found")
             json_data = {"updates": {}}
             log.debug("Created new version file")
@@ -151,6 +153,7 @@ class PackageHandler(object):
     def _load_config(self):
         # Loads config from db if exists.
         # If config doesn't exists create new one
+        print('_load_config():',settings.CONFIG_DB_KEY_PY_REPO_CONFIG)
         config = self.db.load(settings.CONFIG_DB_KEY_PY_REPO_CONFIG)
         if config is None:  # pragma: no cover
             log.debug("Creating new config file")

@@ -183,7 +183,13 @@ class Package(object):
 
         log.debug("Extracting update archive info for: %s", package_basename)
         try:
-            v = Version(package_basename)
+            package_split=package_basename.split('-')
+            print(package_split)
+            package_version = package_split[2]
+            for suffix in self.supported_extensions:
+                package_version = package_version.replace( suffix, '')
+            print(package_version)
+            v = Version(package_version)
             self.channel = v.channel
             self.version = str(v)
         except VersionError:
