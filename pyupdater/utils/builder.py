@@ -172,6 +172,7 @@ class Builder(object):  # pragma: no cover
     # Actually creates executable from spec file
     def _build(self, spec_file_path):
         try:
+            print('self.args.app_version',self.args.app_version)
             Version(self.args.app_version)
         except VersionError:
             log.error("Version format incorrect: %s", self.args.app_version)
